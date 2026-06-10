@@ -15,22 +15,6 @@ st.set_page_config(
 )
 
 # ── STYLES ────────────────────────────────────────────────────────────
-def _inject_bg_image():
-    path = os.path.join(os.path.dirname(__file__), 'tmp', 'Скриншот-09-06-2026 11_00_53.jpg')
-    try:
-        with open(path, 'rb') as f:
-            b64 = base64.b64encode(f.read()).decode()
-        st.markdown(
-            f'<style>.stApp{{background-image:url("data:image/jpeg;base64,{b64}") !important;'
-            'background-size:cover !important;background-position:center !important;'
-            'background-attachment:fixed !important;}}</style>',
-            unsafe_allow_html=True
-        )
-    except Exception:
-        pass
-
-_inject_bg_image()
-
 st.markdown("""<style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -563,41 +547,6 @@ def render_tasks(tasks):
                 f'<div class="task-item"><span class="task-dot">◦</span>{name}</div>'
             )
     st.markdown("".join(parts), unsafe_allow_html=True)
-
-# ── DECORATIONS ──────────────────────────────────────────────────────
-def _load_b64(filename):
-    path = os.path.join(os.path.dirname(__file__), 'assets', filename)
-    try:
-        with open(path, 'rb') as f:
-            return base64.b64encode(f.read()).decode()
-    except Exception:
-        return None
-
-def make_wisteria_top():
-    b64 = _load_b64('wisteria.jpg')
-    if not b64:
-        return ''
-    return (
-        '<div style="width:100%;overflow:hidden;height:180px;margin-bottom:.25rem;line-height:0">'
-        f'<img src="data:image/jpeg;base64,{b64}" '
-        'style="width:100%;height:180px;object-fit:cover;object-position:center top;display:block;'
-        '-webkit-mask-image:linear-gradient(to bottom,black 45%,transparent 100%);'
-        'mask-image:linear-gradient(to bottom,black 45%,transparent 100%)"/>'
-        '</div>'
-    )
-
-def make_garden_bottom():
-    b64 = _load_b64('garden.jpg')
-    if not b64:
-        return ''
-    return (
-        '<div style="width:100%;overflow:hidden;height:130px;margin-top:2.5rem;line-height:0">'
-        f'<img src="data:image/jpeg;base64,{b64}" '
-        'style="width:100%;height:130px;object-fit:cover;object-position:center bottom;display:block;'
-        '-webkit-mask-image:linear-gradient(to top,black 45%,transparent 100%);'
-        'mask-image:linear-gradient(to top,black 45%,transparent 100%)"/>'
-        '</div>'
-    )
 
 # ── UI ────────────────────────────────────────────────────────────────
 st.markdown("""
