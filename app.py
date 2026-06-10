@@ -690,8 +690,9 @@ with tab3:
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = []
 
+    avatars = {"user": "🧑", "assistant": "🌿"}
     for msg in st.session_state.chat_history:
-        with st.chat_message(msg["role"]):
+        with st.chat_message(msg["role"], avatar=avatars[msg["role"]]):
             st.write(msg["content"])
 
     with st.form("chat_form", clear_on_submit=True):
@@ -705,7 +706,7 @@ with tab3:
 
     if submitted and question.strip():
         st.session_state.chat_history.append({"role": "user", "content": question})
-        with st.chat_message("user"):
+        with st.chat_message("user", avatar="🧑"):
             st.write(question)
 
         client = get_client()
@@ -713,7 +714,7 @@ with tab3:
 
         if answer:
             st.session_state.chat_history.append({"role": "assistant", "content": answer})
-            with st.chat_message("assistant"):
+            with st.chat_message("assistant", avatar="🌿"):
                 st.write(answer)
             st.rerun()
 
